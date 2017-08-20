@@ -6,11 +6,16 @@
     <string name="prompt_password">Password (optional)</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
-    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_email">This user name is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <!--App Strings-->
+    <string name="AppName">My Personal Trainer</string>
+    <string name="LoginSuccess">Login Successful</string>
+    <string name="UserName">jdoe</string>
+    <string name="Password">welcome1</string>
 </resources>
