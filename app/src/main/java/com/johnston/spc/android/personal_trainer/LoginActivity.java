@@ -3,6 +3,7 @@ package com.johnston.spc.android.personal_trainer;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -187,6 +188,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(true);
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
+
         }
     }
 
@@ -324,10 +326,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 }
             }
             */
+            String user = getString(R.string.username);
+            String pass = getString(R.string.password);
 
-            if (getString(R.string.username) == mEmail)
+            if (user.equals(mEmail))
             {
-                if (getString(R.string.password) == mPassword) { return true; }
+                if (pass.equals(mPassword)) { return true; }
                 else { return false; }
             }
             else { return false; }
@@ -342,7 +346,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
 
             if (success) {
-                finish();
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
