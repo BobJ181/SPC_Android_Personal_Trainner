@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">Personal_Trainer</string>
+    <string name="app_name">My Personal Trainer</string>
 
     <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
+    <string name="prompt_email">User Name</string>
     <string name="prompt_password">Password (optional)</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
@@ -16,6 +16,6 @@
     <!--App Strings-->
     <string name="AppName">My Personal Trainer</string>
     <string name="LoginSuccess">Login Successful</string>
-    <string name="UserName">jdoe</string>
-    <string name="Password">welcome1</string>
+    <string name="username">jdoe</string>
+    <string name="password">welcome1</string>
 </resources>

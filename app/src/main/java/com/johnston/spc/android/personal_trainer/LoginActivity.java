@@ -192,7 +192,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
-        return email.contains("@");
+        return true;
+        //return email.contains("@");
     }
 
     private boolean isPasswordValid(String password) {
@@ -315,16 +316,24 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 return false;
             }
 
-            for (String credential : DUMMY_CREDENTIALS) {
+            /*for (String credential : DUMMY_CREDENTIALS) {
                 String[] pieces = credential.split(":");
                 if (pieces[0].equals(mEmail)) {
                     // Account exists, return true if the password matches.
                     return pieces[1].equals(mPassword);
                 }
             }
+            */
+
+            if (getString(R.string.username) == mEmail)
+            {
+                if (getString(R.string.password) == mPassword) { return true; }
+                else { return false; }
+            }
+            else { return false; }
 
             // TODO: register the new account here.
-            return true;
+            //return true;
         }
 
         @Override
