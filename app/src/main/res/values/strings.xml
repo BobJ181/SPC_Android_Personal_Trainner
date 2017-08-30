@@ -18,4 +18,5 @@
     <string name="LoginSuccess">Login Successful</string>
     <string name="UserName">jdoe</string>
     <string name="Password">welcome1</string>
+    <!--Additional Forms Strings-->
 </resources>
