@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Personal_Trainer</string>
+    <string name="app_name">My Personal Trainer</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
