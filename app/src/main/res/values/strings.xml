@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Personal_Trainer</string>
+    <string name="app_name">My Personal Trainer</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
@@ -17,7 +17,17 @@
     <string name="AppName">My Personal Trainer</string>
     <string name="LoginSuccess">Login Successful</string>
     <string name="UserName">jdoe</string>
+    <string name="UserEmail">jdoe@congloco.com</string>
     <string name="Password">welcome1</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!--Additional Resources-->
 </resources>

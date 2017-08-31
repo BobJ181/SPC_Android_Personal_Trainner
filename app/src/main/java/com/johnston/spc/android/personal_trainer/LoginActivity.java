@@ -326,8 +326,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 }
             }
             */
-            String user = getString(R.string.username);
-            String pass = getString(R.string.password);
+            String user = getString(R.string.UserName);
+            String pass = getString(R.string.Password);
 
             if (user.equals(mEmail))
             {
