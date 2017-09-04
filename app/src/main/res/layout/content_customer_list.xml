@@ -6,12 +6,18 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.johnston.spc.android.personal_trainer.CustomerListActivity"
+    android:orientation="vertical"
     tools:showIn="@layout/app_bar_customer_list">
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/user"
+        android:name="layout.UserLoggedInFragment"/>
     <ListView
         android:id="@+id/people_List"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/PeopleSearch"
+        android:layout_below="@+id/CustomerList"
         android:layout_weight="1"
         />
 

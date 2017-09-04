@@ -32,5 +32,25 @@
     <!--Additional Resources-->
     <string name="session">Sessions</string>
     <string name="customer">Customers</string>
-    <string name="title_activity_customer_list">CustomerListActivity</string>
+    <string name="title_activity_customer_list">My Personal Trainer - Customers</string>
+    <string name="title_activity_customer_edit">My Personal Trainer - Customer Details</string>
+
+    <!--Customer Edit Activity-->
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="known_as">Known As</string>
+    <string name="email">Email</string>
+    <string name="take_photo">Take Customer Photo</string>
+    <string name="phone">Phone Number</string>
+    <string name="address_one">Address One</string>
+    <string name="address_two">Address Two</string>
+    <string name="city">City</string>
+    <string name="state">State</string>
+    <string name="save">Save Customer</string>
+    <string-array name="state">
+        <item>Florida</item>
+        <item>Georgia</item>
+        <item>South Carolina</item>
+    </string-array>
+    <string name="title_activity_custom_view">CustomViewActivity</string>
 </resources>
