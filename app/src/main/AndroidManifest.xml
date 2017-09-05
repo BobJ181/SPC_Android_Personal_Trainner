@@ -39,7 +39,8 @@
             android:name=".CustomerEditActivity"
             android:label="@string/title_activity_customer_edit"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".CustomerViewActivity"></activity>
+        <activity android:name=".CustomerViewActivity" />
+        <activity android:name=".CustomerPictureActivity"></activity>
     </application>
 
 </manifest>
