@@ -40,7 +40,15 @@
             android:label="@string/title_activity_customer_edit"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".CustomerViewActivity" />
-        <activity android:name=".CustomerPictureActivity"></activity>
+        <activity android:name=".CustomerPictureActivity" />
+        <activity android:name=".CustomerBillingActivity" />
+        <activity
+            android:name=".SessionListActivity"
+            android:label="@string/title_activity_session_list"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".SessionViewActivity" />
+        <activity android:name=".SessionCustomerActivity" />
+        <activity android:name=".SessionBillingActivity"></activity>
     </application>
 
 </manifest>

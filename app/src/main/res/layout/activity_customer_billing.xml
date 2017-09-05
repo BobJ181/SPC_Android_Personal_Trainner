@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.johnston.spc.android.personal_trainer.CustomerBillingActivity">
+    <fragment
+        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/user"
+        android:name="layout.UserLoggedInFragment"/>
+    <TextView
+        android:id="@+id/txtName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:hint="Full Name"
+        />
+    <EditText
+        android:id="@+id/txtFirstName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Credit Card Number"
+        android:padding="10dp"
+        />
+    <EditText
+        android:id="@+id/txtLastName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="CCV"
+        android:padding="10dp"
+        />
+    <EditText
+        android:id="@+id/txtAddressOne"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:hint="@string/address_one"
+        />
+    <EditText
+        android:id="@+id/txtAddressTwo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:hint="@string/address_two"
+        />
+    <EditText
+        android:id="@+id/txtCity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:hint="@string/city"
+        />
+    <!--this needs to be wired up in the back ground-->
+    <Spinner
+        android:id="@+id/spnState"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </Spinner>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Billing Info"/>
+</LinearLayout>

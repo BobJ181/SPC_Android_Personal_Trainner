@@ -53,8 +53,8 @@
         <item>South Carolina</item>
     </string-array>
     <string name="edit">Edit</string>
-    <string name="session">Sessions</string>
     <string name="billing">Billing</string>
     <string name="title_activity_custom_view">CustomViewActivity</string>
+    <string name="title_activity_session_list">SessionListActivity</string>
 
 </resources>
