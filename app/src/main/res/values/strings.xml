@@ -20,7 +20,7 @@
     <string name="UserEmail">jdoe@congloco.com</string>
     <string name="Password">welcome1</string>
     <string name="title_activity_main">MainActivity</string>
-
+    <string name="logout">Log Out</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 

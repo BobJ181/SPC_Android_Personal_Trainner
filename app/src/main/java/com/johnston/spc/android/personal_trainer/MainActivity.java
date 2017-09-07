@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import layout.UserLoggedInFragment;
 
@@ -85,9 +86,10 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
             startActivity(new Intent(MainActivity.this, CustomerListActivity.class));
         } else if (id == R.id.nav_gallery) {
 
-        } /*else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.log_out) {
+            Toast.makeText(getApplicationContext(), "Logging you out!", Toast.LENGTH_LONG).show();
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+        } /*else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
 
