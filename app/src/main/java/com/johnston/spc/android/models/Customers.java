@@ -1,5 +1,7 @@
 package com.johnston.spc.android.models;
 
+import java.util.List;
+
 /**
  * Created by 3johnr181 on 9/6/2017.
  */
@@ -98,5 +100,31 @@ public class Customers {
 
     public void setPhotoSrc(String photoSrc) {
         PhotoSrc = photoSrc;
+    }
+
+    public List<Customer> CustomerList()
+    {
+        List<Customer> cl = null;
+        return null;
+    }
+    public static Customer Instantiate()
+    {
+        return new Customer();
+    }
+    public static Customer Instantiate(String FirstName, String LastName, String KnownAs, String Email, String PhoneNumber, String AddressOne, String AddressTwo, String City, String State, String PhotoUrl)
+    {
+        Customer c = new Customer();
+        c.setAddressOne(AddressOne);
+        c.setAddressTwo(AddressTwo);
+        c.setCity(City);
+        c.setEmail(Email);
+        c.setFirstName(FirstName);
+        c.setLastName(LastName);
+        c.setKnownAsName(KnownAs);
+        c.setPhoneNumber(PhoneNumber);
+        c.setState(State);
+        c.setPhotoSrc(PhotoUrl);
+
+        return c;
     }
 }
