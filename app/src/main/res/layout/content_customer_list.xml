@@ -14,7 +14,7 @@
         android:id="@+id/user"
         android:name="layout.UserLoggedInFragment"/>
     <ListView
-        android:id="@+id/people_List"
+        android:id="@+id/customer_List"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/CustomerList"

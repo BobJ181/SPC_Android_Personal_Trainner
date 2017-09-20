@@ -13,6 +13,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
+
+import com.johnston.spc.android.array_adapter.CustomerArrayAdapter;
+import com.johnston.spc.android.models.Customers;
 
 import layout.UserLoggedInFragment;
 
@@ -43,6 +47,10 @@ public class CustomerListActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        CustomerArrayAdapter listAdapter = new CustomerArrayAdapter(this, Customers.CustomerList());
+
+        ListView lv = (ListView) findViewById(R.id.customer_List);
     }
 
     @Override

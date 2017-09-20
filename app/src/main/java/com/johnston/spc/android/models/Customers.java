@@ -1,5 +1,6 @@
 package com.johnston.spc.android.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -102,10 +103,16 @@ public class Customers {
         PhotoSrc = photoSrc;
     }
 
-    public List<Customers> CustomerList()
+    public static ArrayList<Customers> CustomerList()
     {
-        List<Customers> cl = null;
-        return null;
+        ArrayList<Customers> cl = new ArrayList<Customers>();
+        cl.add(Instantiate("Robert", "Johnston", "Bob", "", "", "", "", "", "", ""));
+        cl.add(Instantiate("John", "Johnston", "John", "", "", "", "", "", "", ""));
+        cl.add(Instantiate("Jane", "Johnston", "Jane", "", "", "", "", "", "", ""));
+        cl.add(Instantiate("Joe", "Johnston", "Joe", "", "", "", "", "", "", ""));
+        cl.add(Instantiate("Joy", "Johnston", "Joy", "", "", "", "", "", "", ""));
+
+        return cl;
     }
     public static Customers Instantiate()
     {

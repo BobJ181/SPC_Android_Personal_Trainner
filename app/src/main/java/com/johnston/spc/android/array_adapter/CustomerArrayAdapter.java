@@ -14,6 +14,7 @@ import java.util.List;
 
 public class CustomerArrayAdapter extends ArrayAdapter<Customers> {
     private final List<Customers> values;
+
     public CustomerArrayAdapter(Context context, List<Customers> v) {
         super(context, R.layout.customer_row, v);
         this.values = v;
