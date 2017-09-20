@@ -19,7 +19,7 @@ public class Customers {
     private String State;
     private String PhotoSrc;
 
-    public String GetFulleName()
+    public String getFullName()
     {
         return FirstName + " (" + KnownAsName + ") " + LastName;
     }
