@@ -102,18 +102,18 @@ public class Customers {
         PhotoSrc = photoSrc;
     }
 
-    public List<Customer> CustomerList()
+    public List<Customers> CustomerList()
     {
-        List<Customer> cl = null;
+        List<Customers> cl = null;
         return null;
     }
-    public static Customer Instantiate()
+    public static Customers Instantiate()
     {
-        return new Customer();
+        return new Customers();
     }
-    public static Customer Instantiate(String FirstName, String LastName, String KnownAs, String Email, String PhoneNumber, String AddressOne, String AddressTwo, String City, String State, String PhotoUrl)
+    public static Customers Instantiate(String FirstName, String LastName, String KnownAs, String Email, String PhoneNumber, String AddressOne, String AddressTwo, String City, String State, String PhotoUrl)
     {
-        Customer c = new Customer();
+        Customers c = new Customers();
         c.setAddressOne(AddressOne);
         c.setAddressTwo(AddressTwo);
         c.setCity(City);
