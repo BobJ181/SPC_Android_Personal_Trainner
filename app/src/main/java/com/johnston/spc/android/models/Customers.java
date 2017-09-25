@@ -34,7 +34,7 @@ public class Customers {
         s = new SqlLite();
     }
 
-    public String GetFulleName()
+    public String getFulleName()
     {
         return FirstName + " (" + KnownAsName + ") " + LastName;
     }
