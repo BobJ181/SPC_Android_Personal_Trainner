@@ -15,6 +15,7 @@
         android:id="@+id/user"
         android:name="layout.UserLoggedInFragment"/>
     <Button
+        android:id="@+id/btn_photo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/take_photo"/>
@@ -24,6 +25,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/first_name"
         android:padding="10dp"
+        android:imeOptions="actionNext"
         />
     <EditText
         android:id="@+id/txtLastName"
@@ -31,6 +33,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/last_name"
         android:padding="10dp"
+        android:imeOptions="actionNext"
         />
     <EditText
         android:id="@+id/txtKnownAsName"
@@ -38,6 +41,7 @@
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:hint="@string/known_as"
+        android:imeOptions="actionNext"
         />
 
     <EditText
@@ -46,6 +50,7 @@
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:hint="@string/email"
+        android:imeOptions="actionNext"
         />
     <EditText
         android:id="@+id/txtPhone"
@@ -53,6 +58,7 @@
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:hint="@string/phone"
+        android:imeOptions="actionNext"
         />
     <EditText
         android:id="@+id/txtAddressOne"
@@ -60,6 +66,7 @@
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:hint="@string/address_one"
+        android:imeOptions="actionNext"
         />
     <EditText
         android:id="@+id/txtAddressTwo"
@@ -67,6 +74,7 @@
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:hint="@string/address_two"
+        android:imeOptions="actionNext"
         />
     <EditText
         android:id="@+id/txtCity"
@@ -74,16 +82,34 @@
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:hint="@string/city"
+        android:imeOptions="actionNext"
         />
     <!--this needs to be wired up in the back ground-->
     <Spinner
         android:id="@+id/spnState"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:imeOptions="actionNext"
+        >
     </Spinner>
 
+    <EditText
+        android:id="@+id/txt_zip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:hint="@string/zip"
+        android:imeOptions="actionDone"
+        />
+
     <Button
+        android:id="@+id/btn_save"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/save"/>
+    <Button
+        android:id="@+id/btn_pay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/pay"/>
 </LinearLayout>

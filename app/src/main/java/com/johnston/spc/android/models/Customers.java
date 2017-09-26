@@ -1,6 +1,10 @@
 package com.johnston.spc.android.models;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
+import android.database.DatabaseUtils;
+import android.database.sqlite.SQLiteDatabase;
 
 import com.johnston.spc.android.database.ReaderDbHelper;
 import com.johnston.spc.android.database.SqlLite;
@@ -15,7 +19,9 @@ public class Customers {
 
     private ReaderDbHelper db;
     private SqlLite s;
+    private Context context;
 
+    private int ID;
     private String FirstName;
     private String LastName;
     private String KnownAsName;
@@ -28,13 +34,19 @@ public class Customers {
     private String Zip;
     private String PhotoSrc;
 
+    public Customers ()
+    {
+        s = new SqlLite();
+        context = null;
+    }
     public Customers(Context c)
     {
         db = new ReaderDbHelper(c);
         s = new SqlLite();
+        context = c;
     }
 
-    public String getFulleName()
+    public String getFullName()
     {
         return FirstName + " (" + KnownAsName + ") " + LastName;
     }
@@ -122,8 +134,20 @@ public class Customers {
 
     public void setZip(String zip) { Zip = zip; }
 
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+
     public ArrayList<Customers> getCustomers()
     {
+        ReaderDbHelper dbHelper = new ReaderDbHelper(context);
+        SQLiteDatabase d = dbHelper.getWritableDatabase();
+        ArrayList<Customers> cl = new ArrayList<Customers>();
+
         String[] proj = {
                 SqlLite.CustomerEntry.COLUMN_NAME_PHOTOSRC,
                 SqlLite.CustomerEntry.COLUMN_NAME_ZIP,
@@ -136,19 +160,45 @@ public class Customers {
                 SqlLite.CustomerEntry.COLUMN_NAME_LASTNAME,
                 SqlLite.CustomerEntry.COLUMN_NAME_KNOWNAS,
                 SqlLite.CustomerEntry.COLUMN_NAME_PHONE
+        };
+
+        Cursor c = d.query(
+                SqlLite.CustomerEntry.TABLE_NAME,
+                proj,
+                "",
+                null,
+                "",
+                "",
+                "");
+
+        while (c.moveToNext())
+        {
+               cl.add(Instantiate(c.getString(c.getColumnIndexOrThrow(SqlLite.CustomerEntry.COLUMN_NAME_FIRSTNAME)),
+                    c.getString(c.getColumnIndexOrThrow(SqlLite.CustomerEntry.COLUMN_NAME_LASTNAME)),
+                    c.getString(c.getColumnIndexOrThrow(SqlLite.CustomerEntry.COLUMN_NAME_KNOWNAS)),
+                    c.getString(c.getColumnIndexOrThrow(SqlLite.CustomerEntry.COLUMN_NAME_EMAIL)),
+                    c.getString(c.getColumnIndexOrThrow(SqlLite.CustomerEntry.COLUMN_NAME_PHONE)),
+                    c.getString(c.getColumnIndexOrThrow(SqlLite.CustomerEntry.COLUMN_NAME_ADDRESSONE)),
+                    c.getString(c.getColumnIndexOrThrow(SqlLite.CustomerEntry.COLUMN_NAME_ADDRESSTWO)),
+                    c.getString(c.getColumnIndexOrThrow(SqlLite.CustomerEntry.COLUMN_NAME_CITY)),
+                    c.getString(c.getColumnIndexOrThrow(SqlLite.CustomerEntry.COLUMN_NAME_STATE)),
+                    c.getString(c.getColumnIndexOrThrow(SqlLite.CustomerEntry.COLUMN_NAME_ZIP)),
+                    c.getString(c.getColumnIndexOrThrow(SqlLite.CustomerEntry.COLUMN_NAME_PHOTOSRC))
+               ));
         }
 
-
+        d.close();
+        return cl;
     }
 
     public static ArrayList<Customers> CustomerList()
     {
         ArrayList<Customers> cl = new ArrayList<Customers>();
-        cl.add(Instantiate("Robert", "Johnston", "Bob", "", "", "", "", "", "", ""));
-        cl.add(Instantiate("John", "Johnston", "John", "", "", "", "", "", "", ""));
-        cl.add(Instantiate("Jane", "Johnston", "Jane", "", "", "", "", "", "", ""));
-        cl.add(Instantiate("Joe", "Johnston", "Joe", "", "", "", "", "", "", ""));
-        cl.add(Instantiate("Joy", "Johnston", "Joy", "", "", "", "", "", "", ""));
+        cl.add(Instantiate("Robert", "Johnston", "Bob", "", "", "", "", "", "", "", ""));
+        cl.add(Instantiate("John", "Johnston", "John", "", "", "", "", "", "", "", ""));
+        cl.add(Instantiate("Jane", "Johnston", "Jane", "", "", "", "", "", "", "", ""));
+        cl.add(Instantiate("Joe", "Johnston", "Joe", "", "", "", "", "", "", "", ""));
+        cl.add(Instantiate("Joy", "Johnston", "Joy", "", "", "", "", "", "", "", ""));
 
         return cl;
     }
@@ -156,7 +206,24 @@ public class Customers {
     {
         return new Customers();
     }
-    public static Customers Instantiate(String FirstName, String LastName, String KnownAs, String Email, String PhoneNumber, String AddressOne, String AddressTwo, String City, String State, String PhotoUrl)
+    public static Customers Instantiate(int ID, String FirstName, String LastName, String KnownAs, String Email, String PhoneNumber, String AddressOne, String AddressTwo, String City, String State,String Zip, String PhotoUrl)
+    {
+        Customers c = new Customers();
+        c.setID(ID);
+        c.setAddressOne(AddressOne);
+        c.setAddressTwo(AddressTwo);
+        c.setCity(City);
+        c.setEmail(Email);
+        c.setFirstName(FirstName);
+        c.setLastName(LastName);
+        c.setKnownAsName(KnownAs);
+        c.setPhoneNumber(PhoneNumber);
+        c.setState(State);
+        c.setPhotoSrc(PhotoUrl);
+
+        return c;
+    }
+    public static Customers Instantiate(String FirstName, String LastName, String KnownAs, String Email, String PhoneNumber, String AddressOne, String AddressTwo, String City, String State, String Zip, String PhotoUrl)
     {
         Customers c = new Customers();
         c.setAddressOne(AddressOne);
@@ -171,5 +238,82 @@ public class Customers {
         c.setPhotoSrc(PhotoUrl);
 
         return c;
+    }
+    public void PutCustomers(ArrayList<Customers> cl)
+    {
+        ReaderDbHelper dbHelper = new ReaderDbHelper(context);
+        SQLiteDatabase d = dbHelper.getWritableDatabase();
+        long rowID = 0;
+
+        for (Customers c : cl ) {
+            ContentValues v = new ContentValues();
+            v.put(SqlLite.CustomerEntry.COLUMN_NAME_PHOTOSRC, c.getPhotoSrc());
+            v.put(SqlLite.CustomerEntry.COLUMN_NAME_ZIP, c.getZip());
+            v.put(SqlLite.CustomerEntry.COLUMN_NAME_STATE, c.getState());
+            v.put(SqlLite.CustomerEntry.COLUMN_NAME_ADDRESSTWO, c.getAddressTwo());
+            v.put(SqlLite.CustomerEntry.COLUMN_NAME_ADDRESSONE, c.getAddressOne());
+            v.put(SqlLite.CustomerEntry.COLUMN_NAME_CITY, c.getCity());
+            v.put(SqlLite.CustomerEntry.COLUMN_NAME_EMAIL, c.getEmail());
+            v.put(SqlLite.CustomerEntry.COLUMN_NAME_FIRSTNAME, c.getFirstName());
+            v.put(SqlLite.CustomerEntry.COLUMN_NAME_LASTNAME, c.getLastName());
+            v.put(SqlLite.CustomerEntry.COLUMN_NAME_KNOWNAS, c.getKnownAsName());
+            v.put(SqlLite.CustomerEntry.COLUMN_NAME_PHONE, c.getPhoneNumber());
+            rowID = d.insert(SqlLite.CustomerEntry.TABLE_NAME, null, v);
+        }
+        d.close();
+    }
+
+    public void DeleteCustomer(Customers c)
+    {
+        ReaderDbHelper dbHelper = new ReaderDbHelper(context);
+        SQLiteDatabase d = dbHelper.getWritableDatabase();
+        String selection = SqlLite.CustomerEntry.COLUMN_NAME_ID + " = ";
+
+        String[] selArgs = { Integer.toString(c.getID()) };
+
+        d.delete(SqlLite.CustomerEntry.TABLE_NAME, selection, selArgs );
+
+        d.close();
+    }
+
+    public void UpdateCustomer(Customers c)
+    {
+        ReaderDbHelper dbHelper = new ReaderDbHelper(context);
+        SQLiteDatabase d = dbHelper.getWritableDatabase();
+        ContentValues v = new ContentValues();
+
+        v.put(SqlLite.CustomerEntry.COLUMN_NAME_PHOTOSRC, c.getPhotoSrc());
+        v.put(SqlLite.CustomerEntry.COLUMN_NAME_ZIP, c.getZip());
+        v.put(SqlLite.CustomerEntry.COLUMN_NAME_STATE, c.getState());
+        v.put(SqlLite.CustomerEntry.COLUMN_NAME_ADDRESSTWO, c.getAddressTwo());
+        v.put(SqlLite.CustomerEntry.COLUMN_NAME_ADDRESSONE, c.getAddressOne());
+        v.put(SqlLite.CustomerEntry.COLUMN_NAME_CITY, c.getCity());
+        v.put(SqlLite.CustomerEntry.COLUMN_NAME_EMAIL, c.getEmail());
+        v.put(SqlLite.CustomerEntry.COLUMN_NAME_FIRSTNAME, c.getFirstName());
+        v.put(SqlLite.CustomerEntry.COLUMN_NAME_LASTNAME, c.getLastName());
+        v.put(SqlLite.CustomerEntry.COLUMN_NAME_KNOWNAS, c.getKnownAsName());
+        v.put(SqlLite.CustomerEntry.COLUMN_NAME_PHONE, c.getPhoneNumber());
+
+        String sel = SqlLite.CustomerEntry.COLUMN_NAME_ID + " = ";
+        String[] selArgs = { Integer.toString(c.getID()) };
+
+        int count = d.update(SqlLite.CustomerEntry.TABLE_NAME, v, sel, selArgs);
+
+        d.close();
+    }
+
+    public void CountDB()
+    {
+        ReaderDbHelper dbHelper = new ReaderDbHelper(context);
+        SQLiteDatabase d = dbHelper.getWritableDatabase();
+
+        long count = DatabaseUtils.queryNumEntries(d, SqlLite.CustomerEntry.TABLE_NAME);
+
+        if (count == 0)
+        {
+            PutCustomers(Customers.CustomerList());
+        }
+
+        d.close();
     }
 }

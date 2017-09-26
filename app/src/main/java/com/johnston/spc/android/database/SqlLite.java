@@ -33,10 +33,10 @@ public final class SqlLite {
                 COLUMN_NAME_ADDRESSTWO + " Text, " + COLUMN_NAME_CITY + " Text, " +
                 COLUMN_NAME_STATE + " Text, " + COLUMN_NAME_ZIP + " Text, " +
                 COLUMN_NAME_PHOTOSRC + " Text)";
-        private static final String SQL_DELETE_ENTRIES =
+        public static final String SQL_DELETE_ENTRIES =
                 "DROP TABLE IF EXISTS " + TABLE_NAME;
 
-        private static final String Select_Base =
+        public static final String Select_Base =
                 "Select " + COLUMN_NAME_ID + ", " + COLUMN_NAME_FIRSTNAME +
                 ", " + COLUMN_NAME_LASTNAME + ", " + COLUMN_NAME_KNOWNAS +
                 ", " + COLUMN_NAME_EMAIL + ", " + COLUMN_NAME_PHONE +
@@ -57,7 +57,7 @@ public final class SqlLite {
                         Column_Name_ID + " Integer Primary Key, " +
                         Column_Name_Session_Name + " Text)";
 
-        private static final String SQL_DELETE_ENTRIES =
+        public static final String SQL_DELETE_ENTRIES =
                 "DROP TABLE IF EXISTS " + Table_Name;
     }
 }

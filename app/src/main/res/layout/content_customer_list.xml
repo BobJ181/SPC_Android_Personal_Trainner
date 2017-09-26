@@ -13,8 +13,12 @@
         android:layout_height="wrap_content"
         android:id="@+id/user"
         android:name="layout.UserLoggedInFragment"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Customers"/>
     <ListView
-        android:id="@+id/customer_List"
+        android:id="@+id/customer_list"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/CustomerList"

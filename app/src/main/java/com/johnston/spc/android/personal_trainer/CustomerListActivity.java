@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -14,8 +12,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.johnston.spc.android.array_adapter.CustomerArrayAdapter;
 import com.johnston.spc.android.models.Customers;
@@ -49,13 +49,28 @@ public class CustomerListActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        CustomerArrayAdapter listAdapter = new CustomerArrayAdapter(this, Customers.CustomerList());
+        Customers c = new Customers(this);
+        c.CountDB();
 
-        ListView lv = (ListView) findViewById(R.id.customer_List);
+        CustomerArrayAdapter listAdapter = new CustomerArrayAdapter(this, c.getCustomers());
+
+        ListView lv = (ListView) findViewById(R.id.customer_list);
 
         lv.setAdapter(listAdapter);
 
-        //lv.setOnItemClickListener(this);
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                CharSequence t = "Clicked... @ Position " + position;
+
+                Toast.makeText(getApplicationContext(), t, Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(getBaseContext(), CustomerEditActivity.class);
+                intent.putExtra("CUSTOMER_ID", position);
+
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

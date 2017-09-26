@@ -35,8 +35,8 @@ public class CustomerArrayAdapter extends ArrayAdapter<Customers> implements OnI
         View rowView = inflater.inflate(R.layout.customer_row, parent, false);
         Customers c = (Customers) values.get(position);
 
-        TextView tvFullName = (TextView) rowView.findViewById(R.id.tv_Name);
-        TextView tvKnown = (TextView) rowView.findViewById(R.id.tv_Known);
+        TextView tvFullName = (TextView) rowView.findViewById(R.id.txt_name);
+        TextView tvKnown = (TextView) rowView.findViewById(R.id.txt_known);
 
         ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
 

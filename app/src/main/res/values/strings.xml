@@ -32,8 +32,8 @@
     <!--Additional Resources-->
     <string name="session">Sessions</string>
     <string name="customer">Customers</string>
-    <string name="title_activity_customer_list">My Personal Trainer - Customers</string>
-    <string name="title_activity_customer_edit">My Personal Trainer - Customer Details</string>
+    <string name="title_activity_customer_list">My Personal Trainer</string>
+    <string name="title_activity_customer_edit">My Personal Trainer</string>
 
     <!--Customer Edit Activity-->
     <string name="first_name">First Name</string>
@@ -46,7 +46,9 @@
     <string name="address_two">Address Two</string>
     <string name="city">City</string>
     <string name="state">State</string>
+    <string name="zip">Zip</string>
     <string name="save">Save Customer</string>
+    <string name="pay">Customer Payment</string>
     <string-array name="state">
         <item>Florida</item>
         <item>Georgia</item>
@@ -58,3 +60,4 @@
     <string name="title_activity_session_list">SessionListActivity</string>
 
 </resources>
+
