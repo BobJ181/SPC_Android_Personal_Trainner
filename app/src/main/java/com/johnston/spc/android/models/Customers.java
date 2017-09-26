@@ -191,6 +191,67 @@ public class Customers {
         return cl;
     }
 
+    public Customers getCustomer(int Value, boolean byPosition)
+    {
+
+        ReaderDbHelper dbHelper = new ReaderDbHelper(context);
+        SQLiteDatabase d = dbHelper.getWritableDatabase();
+        ArrayList<Customers> cl = new ArrayList<Customers>();
+
+        String[] proj = {
+                SqlLite.CustomerEntry.COLUMN_NAME_PHOTOSRC,
+                SqlLite.CustomerEntry.COLUMN_NAME_ZIP,
+                SqlLite.CustomerEntry.COLUMN_NAME_STATE,
+                SqlLite.CustomerEntry.COLUMN_NAME_ADDRESSTWO,
+                SqlLite.CustomerEntry.COLUMN_NAME_ADDRESSONE,
+                SqlLite.CustomerEntry.COLUMN_NAME_CITY,
+                SqlLite.CustomerEntry.COLUMN_NAME_EMAIL,
+                SqlLite.CustomerEntry.COLUMN_NAME_FIRSTNAME,
+                SqlLite.CustomerEntry.COLUMN_NAME_LASTNAME,
+                SqlLite.CustomerEntry.COLUMN_NAME_KNOWNAS,
+                SqlLite.CustomerEntry.COLUMN_NAME_PHONE
+        };
+
+        String sel = "";
+        String[] selArgs = { };
+
+        if (!byPosition){
+            //ToDo:  For now, we are just going to return the first record.  But this is where you would search by ID.
+            //ToDO:  So, nothing here for now...
+        }
+
+        Cursor c = d.query(
+                SqlLite.CustomerEntry.TABLE_NAME,
+                proj,
+                sel,
+                selArgs,
+                "",
+                "",
+                "");
+
+        while (c.moveToNext())
+        {
+            cl.add(Instantiate(c.getString(c.getColumnIndexOrThrow(SqlLite.CustomerEntry.COLUMN_NAME_FIRSTNAME)),
+                    c.getString(c.getColumnIndexOrThrow(SqlLite.CustomerEntry.COLUMN_NAME_LASTNAME)),
+                    c.getString(c.getColumnIndexOrThrow(SqlLite.CustomerEntry.COLUMN_NAME_KNOWNAS)),
+                    c.getString(c.getColumnIndexOrThrow(SqlLite.CustomerEntry.COLUMN_NAME_EMAIL)),
+                    c.getString(c.getColumnIndexOrThrow(SqlLite.CustomerEntry.COLUMN_NAME_PHONE)),
+                    c.getString(c.getColumnIndexOrThrow(SqlLite.CustomerEntry.COLUMN_NAME_ADDRESSONE)),
+                    c.getString(c.getColumnIndexOrThrow(SqlLite.CustomerEntry.COLUMN_NAME_ADDRESSTWO)),
+                    c.getString(c.getColumnIndexOrThrow(SqlLite.CustomerEntry.COLUMN_NAME_CITY)),
+                    c.getString(c.getColumnIndexOrThrow(SqlLite.CustomerEntry.COLUMN_NAME_STATE)),
+                    c.getString(c.getColumnIndexOrThrow(SqlLite.CustomerEntry.COLUMN_NAME_ZIP)),
+                    c.getString(c.getColumnIndexOrThrow(SqlLite.CustomerEntry.COLUMN_NAME_PHOTOSRC))
+            ));
+        }
+
+        d.close();
+
+        //ToDo:  This really should be getting the first record, because we are assuming that we are searching by
+        //ToDo:  a value, not just a position...
+        return cl.get(Value);
+    }
+
     public static ArrayList<Customers> CustomerList()
     {
         ArrayList<Customers> cl = new ArrayList<Customers>();

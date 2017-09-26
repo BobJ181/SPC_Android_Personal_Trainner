@@ -65,7 +65,7 @@ public class CustomerListActivity extends AppCompatActivity
 
                 Toast.makeText(getApplicationContext(), t, Toast.LENGTH_SHORT).show();
 
-                Intent intent = new Intent(getBaseContext(), CustomerEditActivity.class);
+                Intent intent = new Intent(CustomerListActivity.this, CustomerEditActivity.class);
                 intent.putExtra("CUSTOMER_ID", position);
 
                 startActivity(intent);

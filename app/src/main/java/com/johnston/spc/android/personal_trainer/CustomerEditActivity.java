@@ -35,6 +35,8 @@ public class CustomerEditActivity extends AppCompatActivity implements UserLogge
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        String position = "";
+
         Customers c = new Customers(this);
 
         firstName = (EditText) findViewById(R.id.txtFirstName);
@@ -53,6 +55,33 @@ public class CustomerEditActivity extends AppCompatActivity implements UserLogge
         adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
 
         state.setAdapter(adapter);
+
+        Intent i = getIntent();
+        Bundle b = i.getExtras();
+        String s = b.getString("CUSTOMER_ID");
+
+        if (s != null)
+        {
+            position = getIntent().getStringExtra("CUSTOMER_ID");
+
+            c.getCustomer(Integer.parseInt(position), true);
+
+            firstName.setText(c.getFirstName());
+            lastName.setText(c.getLastName());
+            knownAs.setText(c.getKnownAsName());
+            email.setText(c.getEmail());
+            phone.setText(c.getPhoneNumber());
+            addressOne.setText(c.getAddressOne());
+            addressTwo.setText(c.getAddressTwo());
+            city.setText(c.getCity());
+            zip.setText(c.getZip());
+
+            if (c.getState() != null)
+            {
+                int p = adapter.getPosition(c.getState());
+                state.setSelection(p);
+            }
+        }
 
         Button btn_Save = (Button) findViewById(R.id.btn_save);
 
