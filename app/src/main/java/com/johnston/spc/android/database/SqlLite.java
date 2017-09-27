@@ -60,4 +60,27 @@ public final class SqlLite {
         public static final String SQL_DELETE_ENTRIES =
                 "DROP TABLE IF EXISTS " + Table_Name;
     }
+
+    public static class CustomerBillingEntry implements BaseColumns
+    {
+        public static final String Table_Name = "Sessions";
+        public static final String Column_Name_Card_Number = "CardNumber";
+        public static final String Column_Name_ID = "ID";
+        public static final String Column_Name_CCV = "CCV";
+        public static final String Column_Name_Address_One = "AddressOne";
+        public static final String Column_Name_Address_Two = "AddressTwo";
+        public static final String COLUMN_NAME_CITY = "City";
+        public static final String COLUMN_NAME_STATE = "State";
+        public static final String COLUMN_NAME_ZIP = "Zip";
+
+        public static final String SQL_Create_Customer_Table =
+                "CREATE TABLE " + Table_Name + " (" +
+                        Column_Name_ID + " Integer Primary Key, " +
+                        Column_Name_Card_Number + " Text, " + Column_Name_CCV + " Text, " +
+                        Column_Name_Address_One + " Text, " + Column_Name_Address_Two + " Text, " +
+                        COLUMN_NAME_CITY + " Text, " +
+                        COLUMN_NAME_STATE + " Text, " + COLUMN_NAME_ZIP + " Text)";
+        public static final String SQL_DELETE_ENTRIES =
+                "DROP TABLE IF EXISTS " + Table_Name;
+    }
 }
