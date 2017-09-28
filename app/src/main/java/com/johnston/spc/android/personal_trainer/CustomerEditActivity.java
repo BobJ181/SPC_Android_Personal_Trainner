@@ -11,7 +11,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.johnston.spc.android.database.SqlLite;
 import com.johnston.spc.android.models.Customers;
+
+import java.util.ArrayList;
 
 import layout.UserLoggedInFragment;
 
@@ -27,6 +30,8 @@ public class CustomerEditActivity extends AppCompatActivity implements UserLogge
     private EditText city;
     private Spinner state;
     private EditText zip;
+
+    private boolean newRecord = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,27 +63,30 @@ public class CustomerEditActivity extends AppCompatActivity implements UserLogge
 
         Intent i = getIntent();
         Bundle b = i.getExtras();
-        String s = b.getString("CUSTOMER_ID");
-
+        String s = null;
+        if (b != null) {
+            s = "Bob";
+            newRecord = true;
+        }
         if (s != null)
         {
             position = getIntent().getStringExtra("CUSTOMER_ID");
 
-            c.getCustomer(Integer.parseInt(position), true);
+            Customers cust = c.getCustomers(SqlLite.CustomerEntry.COLUMN_NAME_KNOWNAS, "Bob").get(0);
 
-            firstName.setText(c.getFirstName());
-            lastName.setText(c.getLastName());
-            knownAs.setText(c.getKnownAsName());
-            email.setText(c.getEmail());
-            phone.setText(c.getPhoneNumber());
-            addressOne.setText(c.getAddressOne());
-            addressTwo.setText(c.getAddressTwo());
-            city.setText(c.getCity());
-            zip.setText(c.getZip());
+            firstName.setText(cust.getFirstName());
+            lastName.setText(cust.getLastName());
+            knownAs.setText(cust.getKnownAsName());
+            email.setText(cust.getEmail());
+            phone.setText(cust.getPhoneNumber());
+            addressOne.setText(cust.getAddressOne());
+            addressTwo.setText(cust.getAddressTwo());
+            city.setText(cust.getCity());
+            zip.setText(cust.getZip());
 
             if (c.getState() != null)
             {
-                int p = adapter.getPosition(c.getState());
+                int p = adapter.getPosition(cust.getState());
                 state.setSelection(p);
             }
         }
@@ -88,6 +96,40 @@ public class CustomerEditActivity extends AppCompatActivity implements UserLogge
         btn_Save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (newRecord)
+                {
+                    ArrayList<Customers> cl = new ArrayList<Customers>();
+                    Customers c = new Customers();
+
+                    cl.add(c.Instantiate(firstName.getText().toString(),
+                            lastName.getText().toString(),
+                            knownAs.getText().toString(),
+                            email.getText().toString(),
+                            phone.getText().toString(),
+                            addressOne.getText().toString(),
+                            addressTwo.getText().toString(),
+                            city.getText().toString(),
+                            state.getSelectedItem().toString(),
+                            zip.getText().toString(),
+                            ""));
+
+                    c.PutCustomers(cl);
+                }
+                else {
+                    Customers c = new Customers();
+
+                    c.UpdateCustomer(c.Instantiate(firstName.getText().toString(),
+                            lastName.getText().toString(),
+                            knownAs.getText().toString(),
+                            email.getText().toString(),
+                            phone.getText().toString(),
+                            addressOne.getText().toString(),
+                            addressTwo.getText().toString(),
+                            city.getText().toString(),
+                            state.getSelectedItem().toString(),
+                            zip.getText().toString(),
+                            ""));
+                }
 
             }
         });
