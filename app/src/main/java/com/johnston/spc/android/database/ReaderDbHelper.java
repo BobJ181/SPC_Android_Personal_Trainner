@@ -22,7 +22,7 @@ public class ReaderDbHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SqlLite.CustomerEntry.SQL_Create_Customer_Table);
-
+        db.execSQL(SqlLite.CustomerBillingEntry.SQL_Create_Customer_Table);
         db.execSQL(SqlLite.SessionEntry.SQL_Create_Customer_Table);
     }
 
@@ -30,6 +30,7 @@ public class ReaderDbHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         //ToDO:  Come up with a DB Upgrade Policy, at this point we are just going to Delete and start over...
         db.execSQL(SqlLite.CustomerEntry.SQL_DELETE_ENTRIES);
+        db.execSQL(SqlLite.CustomerBillingEntry.SQL_DELETE_ENTRIES);
         db.execSQL(SqlLite.SessionEntry.SQL_DELETE_ENTRIES);
         onCreate(db);
     }
