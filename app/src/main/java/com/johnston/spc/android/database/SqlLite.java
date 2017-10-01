@@ -63,7 +63,7 @@ public final class SqlLite {
 
     public static class CustomerBillingEntry implements BaseColumns
     {
-        public static final String Table_Name = "Sessions";
+        public static final String Table_Name = "CustomerBilling";
         public static final String Column_Name_Card_Number = "CardNumber";
         public static final String Column_Name_ID = "ID";
         public static final String Column_Name_CCV = "CCV";

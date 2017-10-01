@@ -212,16 +212,16 @@ public class Customers {
         };
 
 
-        String sel = SqlLite.CustomerEntry.COLUMN_NAME_KNOWNAS + " = ";
-        String[] selArg = {"Bob"};
+        String sel = SqlLite.CustomerEntry.COLUMN_NAME_KNOWNAS + " = ?";
+        String[] selArg = { "Bob" };
 
         Cursor c = d.query(
                 SqlLite.CustomerEntry.TABLE_NAME,
                 proj,
                 sel,
                 selArg,
-                "",
-                "",
+                null,
+                null,
                 "");
 
         while (c.moveToNext())
@@ -381,7 +381,7 @@ public class Customers {
     {
         ReaderDbHelper dbHelper = new ReaderDbHelper(context);
         SQLiteDatabase d = dbHelper.getWritableDatabase();
-        String selection = SqlLite.CustomerEntry.COLUMN_NAME_ID + " = ";
+        String selection = SqlLite.CustomerEntry.COLUMN_NAME_ID + " = ?";
 
         String[] selArgs = { Integer.toString(c.getID()) };
 
@@ -408,7 +408,7 @@ public class Customers {
         v.put(SqlLite.CustomerEntry.COLUMN_NAME_KNOWNAS, c.getKnownAsName());
         v.put(SqlLite.CustomerEntry.COLUMN_NAME_PHONE, c.getPhoneNumber());
 
-        String sel = SqlLite.CustomerEntry.COLUMN_NAME_ID + " = ";
+        String sel = SqlLite.CustomerEntry.COLUMN_NAME_ID + " = ?";
         String[] selArgs = { Integer.toString(c.getID()) };
 
         int count = d.update(SqlLite.CustomerEntry.TABLE_NAME, v, sel, selArgs);

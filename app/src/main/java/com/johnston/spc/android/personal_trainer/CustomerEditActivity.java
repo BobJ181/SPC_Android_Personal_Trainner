@@ -33,6 +33,8 @@ public class CustomerEditActivity extends AppCompatActivity implements UserLogge
 
     private boolean newRecord = false;
 
+    private Customers customer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +44,7 @@ public class CustomerEditActivity extends AppCompatActivity implements UserLogge
 
         String position = "";
 
-        Customers c = new Customers(this);
+        customer = new Customers(this);
 
         firstName = (EditText) findViewById(R.id.txtFirstName);
         lastName =(EditText) findViewById(R.id.txtLastName);
@@ -66,13 +68,13 @@ public class CustomerEditActivity extends AppCompatActivity implements UserLogge
         String s = null;
         if (b != null) {
             s = "Bob";
-            newRecord = true;
+            newRecord = false;
         }
         if (s != null)
         {
             position = getIntent().getStringExtra("CUSTOMER_ID");
 
-            Customers cust = c.getCustomers(SqlLite.CustomerEntry.COLUMN_NAME_KNOWNAS, "Bob").get(0);
+            Customers cust = customer.getCustomers(SqlLite.CustomerEntry.COLUMN_NAME_KNOWNAS, "Bob").get(0);
 
             firstName.setText(cust.getFirstName());
             lastName.setText(cust.getLastName());
@@ -84,7 +86,7 @@ public class CustomerEditActivity extends AppCompatActivity implements UserLogge
             city.setText(cust.getCity());
             zip.setText(cust.getZip());
 
-            if (c.getState() != null)
+            if (cust.getState() != null)
             {
                 int p = adapter.getPosition(cust.getState());
                 state.setSelection(p);
@@ -99,7 +101,7 @@ public class CustomerEditActivity extends AppCompatActivity implements UserLogge
                 if (newRecord)
                 {
                     ArrayList<Customers> cl = new ArrayList<Customers>();
-                    Customers c = new Customers();
+                    Customers c = customer;
 
                     cl.add(c.Instantiate(firstName.getText().toString(),
                             lastName.getText().toString(),
@@ -116,7 +118,7 @@ public class CustomerEditActivity extends AppCompatActivity implements UserLogge
                     c.PutCustomers(cl);
                 }
                 else {
-                    Customers c = new Customers();
+                    Customers c = customer;
 
                     c.UpdateCustomer(c.Instantiate(firstName.getText().toString(),
                             lastName.getText().toString(),
