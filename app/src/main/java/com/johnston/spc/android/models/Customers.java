@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
+import android.widget.Toast;
 
 import com.johnston.spc.android.database.ReaderDbHelper;
 import com.johnston.spc.android.database.SqlLite;
@@ -414,6 +415,9 @@ public class Customers {
         int count = d.update(SqlLite.CustomerEntry.TABLE_NAME, v, sel, selArgs);
 
         d.close();
+
+        CharSequence s = "Customer Data Saved!";
+        Toast.makeText(context, s, Toast.LENGTH_LONG).show();
     }
 
     public void CountDB()
