@@ -20,14 +20,14 @@
         android:hint="Full Name"
         />
     <EditText
-        android:id="@+id/txtFirstName"
+        android:id="@+id/txt_ccn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Credit Card Number"
         android:padding="10dp"
         />
     <EditText
-        android:id="@+id/txtLastName"
+        android:id="@+id/txt_ccv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="CCV"
@@ -61,6 +61,7 @@
         android:layout_height="wrap_content">
     </Spinner>
     <Button
+        android:id="@+id/btn_save"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Billing Info"/>

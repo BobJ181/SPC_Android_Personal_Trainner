@@ -143,7 +143,11 @@ public class CustomerEditActivity extends AppCompatActivity implements UserLogge
         btn_pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(CustomerEditActivity.this, CustomerBillingActivity.class));
+
+                Intent intent = new Intent(CustomerEditActivity.this, CustomerBillingActivity.class);
+                intent.putExtra("CUSTOMER_ID", Integer.toString(ID));
+
+                startActivity(intent);
             }
         });
 

@@ -1,9 +1,12 @@
 package com.johnston.spc.android.models;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.location.Address;
+import android.widget.Toast;
 
 import com.johnston.spc.android.database.ReaderDbHelper;
 import com.johnston.spc.android.database.SqlLite;
@@ -128,15 +131,17 @@ public class CustomerBilling {
         return cb;
     }
 
-    public CustomerBilling getCustomer(String Value)
+    public CustomerBilling getCustomerBilling(String Value)
     {
 
         ReaderDbHelper dbHelper = new ReaderDbHelper(ctx);
         SQLiteDatabase d = dbHelper.getWritableDatabase();
-        ArrayList<Customers> cl = new ArrayList<Customers>();
+
+        CountDB();
 
         String[] proj = {
                 SqlLite.CustomerBillingEntry.Column_Name_ID,
+                SqlLite.CustomerBillingEntry.Column_Name_CustomerID,
                 SqlLite.CustomerBillingEntry.COLUMN_NAME_STATE,
                 SqlLite.CustomerBillingEntry.Column_Name_Address_One,
                 SqlLite.CustomerBillingEntry.Column_Name_Address_Two,
@@ -145,12 +150,15 @@ public class CustomerBilling {
                 SqlLite.CustomerBillingEntry.Column_Name_CCV
         };
 
-        String sel = SqlLite.CustomerBillingEntry.Column_Name_ID;
+        String sel = SqlLite.CustomerBillingEntry.Column_Name_CustomerID;
         String[] selArgs = { Value };
 
-        Cursor c = d.query(SqlLite.CustomerEntry.TABLE_NAME, proj, sel, selArgs, "", "", "");
+
+        Cursor c = d.query(SqlLite.CustomerBillingEntry.Table_Name, proj, sel, selArgs, "", "", "");
 
         d.close();
+
+        if (c.getCount() == 0) return null;
 
         return CustomerBilling.Instantiate(c.getInt(c.getColumnIndexOrThrow(SqlLite.CustomerBillingEntry.Column_Name_ID)),
                 c.getInt(c.getColumnIndexOrThrow(SqlLite.CustomerBillingEntry.Column_Name_CustomerID)),
@@ -160,5 +168,74 @@ public class CustomerBilling {
                 c.getString(c.getColumnIndexOrThrow(SqlLite.CustomerBillingEntry.Column_Name_Address_Two)),
                 c.getString(c.getColumnIndexOrThrow(SqlLite.CustomerBillingEntry.COLUMN_NAME_CITY)),
                 c.getString(c.getColumnIndexOrThrow(SqlLite.CustomerBillingEntry.COLUMN_NAME_STATE)));
+    }
+    public void PutCustomers(CustomerBilling cb)
+    {
+        ReaderDbHelper dbHelper = new ReaderDbHelper(ctx);
+        SQLiteDatabase d = dbHelper.getWritableDatabase();
+        long rowID = 0;
+
+        ContentValues v = new ContentValues();
+        v.put(SqlLite.CustomerBillingEntry.Column_Name_Card_Number, cb.getCreditCardNumber());
+        v.put(SqlLite.CustomerBillingEntry.Column_Name_CCV, cb.getCCV());
+        v.put(SqlLite.CustomerBillingEntry.Column_Name_Address_One, cb.getAddressOne());
+        v.put(SqlLite.CustomerBillingEntry.Column_Name_Address_Two, cb.getAddressTwo());
+        v.put(SqlLite.CustomerBillingEntry.COLUMN_NAME_CITY, cb.getCity());
+        v.put(SqlLite.CustomerBillingEntry.COLUMN_NAME_STATE, cb.getState());
+
+        rowID = d.insert(SqlLite.CustomerBillingEntry.Table_Name, null, v);
+
+        d.close();
+    }
+
+    public void DeleteCustomer(CustomerBilling c)
+    {
+        ReaderDbHelper dbHelper = new ReaderDbHelper(ctx);
+        SQLiteDatabase d = dbHelper.getWritableDatabase();
+        String selection = SqlLite.CustomerBillingEntry.Column_Name_ID + " = ?";
+
+        String[] selArgs = { Integer.toString(c.getID()) };
+
+        d.delete(SqlLite.CustomerBillingEntry.Table_Name, selection, selArgs );
+
+        d.close();
+    }
+
+    public void UpdateCustomer(CustomerBilling cb)
+    {
+        ReaderDbHelper dbHelper = new ReaderDbHelper(ctx);
+        SQLiteDatabase d = dbHelper.getWritableDatabase();
+
+        ContentValues v = new ContentValues();
+        v.put(SqlLite.CustomerBillingEntry.Column_Name_Card_Number, cb.getCreditCardNumber());
+        v.put(SqlLite.CustomerBillingEntry.Column_Name_CCV, cb.getCCV());
+        v.put(SqlLite.CustomerBillingEntry.Column_Name_Address_One, cb.getAddressOne());
+        v.put(SqlLite.CustomerBillingEntry.Column_Name_Address_Two, cb.getAddressTwo());
+        v.put(SqlLite.CustomerBillingEntry.COLUMN_NAME_CITY, cb.getCity());
+        v.put(SqlLite.CustomerBillingEntry.COLUMN_NAME_STATE, cb.getState());
+
+        String sel = SqlLite.CustomerBillingEntry.Column_Name_ID + " = ?";
+        String[] selArgs = { Integer.toString(cb.getID()) };
+
+        int count = d.update(SqlLite.CustomerBillingEntry.Table_Name, v, sel, selArgs);
+
+        d.close();
+
+        CharSequence s = "Customer Data Saved!";
+        Toast.makeText(ctx, s, Toast.LENGTH_LONG).show();
+    }
+
+    public boolean CountDB()
+    {
+        ReaderDbHelper dbHelper = new ReaderDbHelper(ctx);
+        SQLiteDatabase d = dbHelper.getWritableDatabase();
+
+        long count = DatabaseUtils.queryNumEntries(d, SqlLite.CustomerEntry.TABLE_NAME);
+
+        if (count == 0) PutCustomers(CustomerBilling.Instantiate(1, "4444333322221111", "000", "", "", "", "" ));
+
+        d.close();
+
+        return count == 0;
     }
 }

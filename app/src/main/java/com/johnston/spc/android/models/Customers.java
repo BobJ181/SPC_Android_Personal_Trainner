@@ -257,6 +257,7 @@ public class Customers {
         ArrayList<Customers> cl = new ArrayList<Customers>();
 
         String[] proj = {
+                SqlLite.CustomerEntry.COLUMN_NAME_ID,
                 SqlLite.CustomerEntry.COLUMN_NAME_PHOTOSRC,
                 SqlLite.CustomerEntry.COLUMN_NAME_ZIP,
                 SqlLite.CustomerEntry.COLUMN_NAME_STATE,
