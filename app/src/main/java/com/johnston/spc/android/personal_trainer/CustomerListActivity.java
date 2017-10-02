@@ -20,10 +20,13 @@ import android.widget.Toast;
 import com.johnston.spc.android.array_adapter.CustomerArrayAdapter;
 import com.johnston.spc.android.models.Customers;
 
+import java.util.ArrayList;
+
 import layout.UserLoggedInFragment;
 
 public class CustomerListActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, UserLoggedInFragment.OnFragmentInteractionListener {
+    private ArrayList<Customers> customerList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +55,9 @@ public class CustomerListActivity extends AppCompatActivity
         Customers c = new Customers(this);
         c.CountDB();
 
-        CustomerArrayAdapter listAdapter = new CustomerArrayAdapter(this, c.getCustomers());
+        customerList = c.getCustomers();
+
+        CustomerArrayAdapter listAdapter = new CustomerArrayAdapter(this, customerList);
 
         ListView lv = (ListView) findViewById(R.id.customer_list);
 
@@ -62,11 +67,12 @@ public class CustomerListActivity extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 CharSequence t = "Clicked... @ Position " + position;
+                Customers c = customerList.get(position);
 
                 Toast.makeText(getApplicationContext(), t, Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(CustomerListActivity.this, CustomerEditActivity.class);
-                intent.putExtra("CUSTOMER_ID", position);
+                intent.putExtra("CUSTOMER_ID", Integer.toString(c.getID()));
 
                 startActivity(intent);
             }
@@ -81,6 +87,8 @@ public class CustomerListActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
+        Customers c = new Customers();
+        customerList = c.getCustomers();
     }
 
     @Override

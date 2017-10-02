@@ -34,6 +34,7 @@ public class CustomerEditActivity extends AppCompatActivity implements UserLogge
     private boolean newRecord = false;
 
     private Customers customer;
+    private int ID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +75,8 @@ public class CustomerEditActivity extends AppCompatActivity implements UserLogge
         {
             position = getIntent().getStringExtra("CUSTOMER_ID");
 
-            Customers cust = customer.getCustomers(SqlLite.CustomerEntry.COLUMN_NAME_KNOWNAS, "Bob").get(0);
+            Customers cust = customer.getCustomers(SqlLite.CustomerEntry.COLUMN_NAME_ID, position).get(0);
+            ID = cust.getID();
 
             firstName.setText(cust.getFirstName());
             lastName.setText(cust.getLastName());
@@ -103,7 +105,7 @@ public class CustomerEditActivity extends AppCompatActivity implements UserLogge
                     ArrayList<Customers> cl = new ArrayList<Customers>();
                     Customers c = customer;
 
-                    cl.add(c.Instantiate(firstName.getText().toString(),
+                    cl.add(c.Instantiate(ID, firstName.getText().toString(),
                             lastName.getText().toString(),
                             knownAs.getText().toString(),
                             email.getText().toString(),
@@ -120,7 +122,7 @@ public class CustomerEditActivity extends AppCompatActivity implements UserLogge
                 else {
                     Customers c = customer;
 
-                    c.UpdateCustomer(c.Instantiate(firstName.getText().toString(),
+                    c.UpdateCustomer(c.Instantiate(ID, firstName.getText().toString(),
                             lastName.getText().toString(),
                             knownAs.getText().toString(),
                             email.getText().toString(),

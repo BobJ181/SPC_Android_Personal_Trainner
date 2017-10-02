@@ -12,7 +12,7 @@ public class ReaderDbHelper extends SQLiteOpenHelper {
 
     private static Context c;
 
-    public static final String DbName = "PTrainer4.db";
+    public static final String DbName = "PTrainer5.db";
     public ReaderDbHelper(Context context)
     {
         super(context, DbName, null, 1);

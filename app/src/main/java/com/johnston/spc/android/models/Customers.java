@@ -150,6 +150,7 @@ public class Customers {
         ArrayList<Customers> cl = new ArrayList<Customers>();
 
         String[] proj = {
+                SqlLite.CustomerEntry.COLUMN_NAME_ID,
                 SqlLite.CustomerEntry.COLUMN_NAME_PHOTOSRC,
                 SqlLite.CustomerEntry.COLUMN_NAME_ZIP,
                 SqlLite.CustomerEntry.COLUMN_NAME_STATE,
@@ -174,7 +175,8 @@ public class Customers {
 
         while (c.moveToNext())
         {
-               cl.add(Instantiate(c.getString(c.getColumnIndexOrThrow(SqlLite.CustomerEntry.COLUMN_NAME_FIRSTNAME)),
+               cl.add(Instantiate(c.getInt(c.getColumnIndexOrThrow(SqlLite.CustomerEntry.COLUMN_NAME_ID)),
+                    c.getString(c.getColumnIndexOrThrow(SqlLite.CustomerEntry.COLUMN_NAME_FIRSTNAME)),
                     c.getString(c.getColumnIndexOrThrow(SqlLite.CustomerEntry.COLUMN_NAME_LASTNAME)),
                     c.getString(c.getColumnIndexOrThrow(SqlLite.CustomerEntry.COLUMN_NAME_KNOWNAS)),
                     c.getString(c.getColumnIndexOrThrow(SqlLite.CustomerEntry.COLUMN_NAME_EMAIL)),
@@ -199,6 +201,7 @@ public class Customers {
         ArrayList<Customers> cl = new ArrayList<Customers>();
 
         String[] proj = {
+                SqlLite.CustomerEntry.COLUMN_NAME_ID,
                 SqlLite.CustomerEntry.COLUMN_NAME_PHOTOSRC,
                 SqlLite.CustomerEntry.COLUMN_NAME_ZIP,
                 SqlLite.CustomerEntry.COLUMN_NAME_STATE,
@@ -213,8 +216,8 @@ public class Customers {
         };
 
 
-        String sel = SqlLite.CustomerEntry.COLUMN_NAME_KNOWNAS + " = ?";
-        String[] selArg = { "Bob" };
+        String sel = column + " = ?";
+        String[] selArg = { value };
 
         Cursor c = d.query(
                 SqlLite.CustomerEntry.TABLE_NAME,
@@ -227,7 +230,8 @@ public class Customers {
 
         while (c.moveToNext())
         {
-            cl.add(Instantiate(c.getString(c.getColumnIndexOrThrow(SqlLite.CustomerEntry.COLUMN_NAME_FIRSTNAME)),
+            cl.add(Instantiate(c.getInt(c.getColumnIndexOrThrow(SqlLite.CustomerEntry.COLUMN_NAME_ID)),
+                    c.getString(c.getColumnIndexOrThrow(SqlLite.CustomerEntry.COLUMN_NAME_FIRSTNAME)),
                     c.getString(c.getColumnIndexOrThrow(SqlLite.CustomerEntry.COLUMN_NAME_LASTNAME)),
                     c.getString(c.getColumnIndexOrThrow(SqlLite.CustomerEntry.COLUMN_NAME_KNOWNAS)),
                     c.getString(c.getColumnIndexOrThrow(SqlLite.CustomerEntry.COLUMN_NAME_EMAIL)),
@@ -285,7 +289,8 @@ public class Customers {
 
         while (c.moveToNext())
         {
-            cl.add(Instantiate(c.getString(c.getColumnIndexOrThrow(SqlLite.CustomerEntry.COLUMN_NAME_FIRSTNAME)),
+            cl.add(Instantiate(c.getInt(c.getColumnIndexOrThrow(SqlLite.CustomerEntry.COLUMN_NAME_ID)),
+                    c.getString(c.getColumnIndexOrThrow(SqlLite.CustomerEntry.COLUMN_NAME_FIRSTNAME)),
                     c.getString(c.getColumnIndexOrThrow(SqlLite.CustomerEntry.COLUMN_NAME_LASTNAME)),
                     c.getString(c.getColumnIndexOrThrow(SqlLite.CustomerEntry.COLUMN_NAME_KNOWNAS)),
                     c.getString(c.getColumnIndexOrThrow(SqlLite.CustomerEntry.COLUMN_NAME_EMAIL)),

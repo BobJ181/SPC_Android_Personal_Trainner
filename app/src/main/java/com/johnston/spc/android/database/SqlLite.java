@@ -26,7 +26,7 @@ public final class SqlLite {
 
         public static final String SQL_Create_Customer_Table =
                 "CREATE TABLE " + TABLE_NAME + " (" +
-                COLUMN_NAME_ID + " Integer Primary Key, " +
+                COLUMN_NAME_ID + " Integer Primary Key AUTOINCREMENT, " +
                 COLUMN_NAME_FIRSTNAME + " Text, " + COLUMN_NAME_LASTNAME + " Text, " +
                 COLUMN_NAME_KNOWNAS + " Text, " + COLUMN_NAME_EMAIL + " Text, " +
                 COLUMN_NAME_PHONE + " Text, " + COLUMN_NAME_ADDRESSONE + " Text, " +
@@ -54,7 +54,7 @@ public final class SqlLite {
 
         public static final String SQL_Create_Customer_Table =
                 "CREATE TABLE " + Table_Name + " (" +
-                        Column_Name_ID + " Integer Primary Key, " +
+                        Column_Name_ID + " Integer Primary Key AUTOINCREMENT, " +
                         Column_Name_Session_Name + " Text)";
 
         public static final String SQL_DELETE_ENTRIES =
@@ -66,6 +66,7 @@ public final class SqlLite {
         public static final String Table_Name = "CustomerBilling";
         public static final String Column_Name_Card_Number = "CardNumber";
         public static final String Column_Name_ID = "ID";
+        public static final String Column_Name_CustomerID = "CustomerID";
         public static final String Column_Name_CCV = "CCV";
         public static final String Column_Name_Address_One = "AddressOne";
         public static final String Column_Name_Address_Two = "AddressTwo";
@@ -75,7 +76,8 @@ public final class SqlLite {
 
         public static final String SQL_Create_Customer_Table =
                 "CREATE TABLE " + Table_Name + " (" +
-                        Column_Name_ID + " Integer Primary Key, " +
+                        Column_Name_ID + " Integer Primary Key AUTOINCREMENT, " +
+                        Column_Name_CustomerID + " Integer, " +
                         Column_Name_Card_Number + " Text, " + Column_Name_CCV + " Text, " +
                         Column_Name_Address_One + " Text, " + Column_Name_Address_Two + " Text, " +
                         COLUMN_NAME_CITY + " Text, " +
