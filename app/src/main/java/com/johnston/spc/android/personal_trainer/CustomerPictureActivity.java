@@ -69,31 +69,33 @@ public class CustomerPictureActivity extends AppCompatActivity implements Naviga
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK && requestCode == 0) {
-            try {
-                Bundle extras = data.getExtras();
-
-                Bitmap bmp = (Bitmap) extras.get("data");
-
-                photoView.setImageBitmap(bmp);
-
+        if (resultCode == RESULT_OK ) {
+            if (requestCode == 0 ) {
                 try {
-                    FileOutputStream fos = new FileOutputStream(getFileForPic());
+                    Bundle extras = data.getExtras();
 
-                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                    bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
-                    byte[] byteArray = stream.toByteArray();
+                    Bitmap bmp = (Bitmap) extras.get("data");
 
-                    fos.write(byteArray);
-                    fos.close();
+                    photoView.setImageBitmap(bmp);
 
-                    Toast.makeText(this, "Picture Saved - " + getFileForPic(), Toast.LENGTH_LONG).show();
+                    try {
+                        FileOutputStream fos = new FileOutputStream(getFileForPic());
+
+                        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                        bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                        byte[] byteArray = stream.toByteArray();
+
+                        fos.write(byteArray);
+                        fos.close();
+
+                        Toast.makeText(this, "Picture Saved - " + getFileForPic(), Toast.LENGTH_LONG).show();
+                    } catch (Exception e) {
+
+                    }
+
                 } catch (Exception e) {
 
                 }
-
-            } catch (Exception e) {
-
             }
         }
     }
