@@ -87,7 +87,7 @@ public class CustomerPictureActivity extends AppCompatActivity implements Naviga
                     fos.write(byteArray);
                     fos.close();
 
-                    Toast.makeText(this, "Picture Saved", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "Picture Saved - " + getFileForPic(), Toast.LENGTH_LONG).show();
                 } catch (Exception e) {
 
                 }
@@ -111,10 +111,6 @@ public class CustomerPictureActivity extends AppCompatActivity implements Naviga
     private File getFileForPic() {
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 100);
         File fileDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-        if (fileDir.exists()) {
-            if (!fileDir.mkdir()) Toast.makeText(this, "Can't make Dir", Toast.LENGTH_LONG).show();
-            return null;
-        }
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyymmddMMss");
         String date = dateFormat.format(new Date());
