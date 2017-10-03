@@ -111,8 +111,8 @@ public class CustomerPictureActivity extends AppCompatActivity implements Naviga
     private File getFileForPic() {
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 100);
         File fileDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-        if (fileDir.exists() && !fileDir.mkdir()) {
-            Toast.makeText(this, "Can't make Dir", Toast.LENGTH_LONG).show();
+        if (fileDir.exists()) {
+            if (!fileDir.mkdir()) Toast.makeText(this, "Can't make Dir", Toast.LENGTH_LONG).show();
             return null;
         }
 
