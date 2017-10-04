@@ -20,11 +20,12 @@ import java.util.List;
  */
 
 public class SessionArrayAdapter extends ArrayAdapter<Session> implements AdapterView.OnItemClickListener {
-    @Override
+
     private final List<Session> values;
     private final Context context;
+
     public SessionArrayAdapter(Context context, List<Session> v) {
-        super(context, R.layout.customer_row, v);
+        super(context, R.layout.session_row, v);
         this.values = v;
         this.context = context;
     }
@@ -36,13 +37,9 @@ public class SessionArrayAdapter extends ArrayAdapter<Session> implements Adapte
         Session s = (Session) values.get(position);
 
         TextView tvFullName = (TextView) rowView.findViewById(R.id.txt_name);
-        TextView tvKnown = (TextView) rowView.findViewById(R.id.txt_known);
+        TextView tvCustomer = (TextView) rowView.findViewById(R.id.txt_customer);
+        tvFullName.setText(s.getSessionName());
 
-        ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
-
-        tvFullName.setText(c.getFullName());
-
-        tvKnown.setText(c.getKnownAsName());
 
         return rowView;
     }

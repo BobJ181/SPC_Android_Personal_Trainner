@@ -51,10 +51,12 @@ public final class SqlLite {
         public static final String Table_Name = "Sessions";
         public static final String Column_Name_Session_Name = "SessionName";
         public static final String Column_Name_ID = "ID";
+        public static final String Column_Name_Customer_ID = "CustomerID";
 
-        public static final String SQL_Create_Customer_Table =
+        public static final String SQL_Create_Session_Table =
                 "CREATE TABLE " + Table_Name + " (" +
                         Column_Name_ID + " Integer Primary Key AUTOINCREMENT, " +
+                        Column_Name_Customer_ID + " Integer, " +
                         Column_Name_Session_Name + " Text)";
 
         public static final String SQL_DELETE_ENTRIES =

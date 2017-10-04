@@ -13,6 +13,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.johnston.spc.android.models.Customers;
+import com.johnston.spc.android.models.Session;
+
 import layout.UserLoggedInFragment;
 
 public class MainActivity extends AppCompatActivity  implements NavigationView.OnNavigationItemSelectedListener, UserLoggedInFragment.OnFragmentInteractionListener{
@@ -33,6 +36,13 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
             }
         });
         */
+
+        Customers c = new Customers(this);
+        Session s =  new Session(this);
+
+        c.CountDB();
+        s.Populated();
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -85,7 +95,7 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         if (id == R.id.nav_camera) {
             startActivity(new Intent(MainActivity.this, CustomerListActivity.class));
         } else if (id == R.id.nav_gallery) {
-
+            startActivity(new Intent(MainActivity.this, SessionListActivity.class));
         } else if (id == R.id.log_out) {
             Toast.makeText(getApplicationContext(), "Logging you out!", Toast.LENGTH_LONG).show();
             startActivity(new Intent(MainActivity.this, LoginActivity.class));

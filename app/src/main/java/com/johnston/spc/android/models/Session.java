@@ -19,6 +19,7 @@ import java.util.ArrayList;
 public class Session {
     private int ID;
     private String SessionName;
+    private int CustID;
 
     private Context ctx;
 
@@ -47,15 +48,17 @@ public class Session {
 
     public static Session Instantiate() { return new Session(); }
 
-    public static Session Instantiate(String sessionName) {
+    public static Session Instantiate(int CustomerID, String sessionName) {
         Session s = new Session();
+        s.setCustID(CustomerID);
         s.setSessionName(sessionName);
 
         return s;
     }
 
-    public static Session Instantiate(int ID, String sessionName) {
+    public static Session Instantiate(int ID, int CustomerID, String sessionName) {
         Session s = new Session();
+        s.setCustID(CustomerID);
         s.setSessionName(sessionName);
         s.setID(ID);
 
@@ -66,9 +69,9 @@ public class Session {
     {
         ArrayList<Session> sl = new ArrayList<Session>();
 
-        sl.add(Session.Instantiate("Monday Session"));
-        sl.add(Session.Instantiate("Thursday Session"));
-        sl.add(Session.Instantiate("Saturday Session"));
+        sl.add(Session.Instantiate(0, 1, "Monday Session"));
+        sl.add(Session.Instantiate(0, 1, "Thursday Session"));
+        sl.add(Session.Instantiate(0, 2, "Saturday Session"));
 
         return sl;
     }
@@ -82,12 +85,13 @@ public class Session {
 
         String[] proj = {
                 SqlLite.SessionEntry.Column_Name_ID,
-                SqlLite.SessionEntry.Column_Name_Session_Name
+                SqlLite.SessionEntry.Column_Name_Session_Name,
+                SqlLite.SessionEntry.Column_Name_Customer_ID
         };
 
 
         String sel = "";
-        String[] selArg = { "" };
+        String[] selArg = {  };
 
         Cursor c = d.query(
                 SqlLite.SessionEntry.Table_Name,
@@ -101,6 +105,7 @@ public class Session {
         while (c.moveToNext())
         {
             sl.add(Instantiate(c.getInt(c.getColumnIndexOrThrow(SqlLite.SessionEntry.Column_Name_ID)),
+                    c.getInt(c.getColumnIndexOrThrow(SqlLite.SessionEntry.Column_Name_Customer_ID)),
                     c.getString(c.getColumnIndexOrThrow(SqlLite.SessionEntry.Column_Name_Session_Name))
             ));
         }
@@ -118,7 +123,8 @@ public class Session {
 
         String[] proj = {
                 SqlLite.SessionEntry.Column_Name_ID,
-                SqlLite.SessionEntry.Column_Name_Session_Name
+                SqlLite.SessionEntry.Column_Name_Session_Name,
+                SqlLite.SessionEntry.Column_Name_Customer_ID
         };
 
 
@@ -137,12 +143,16 @@ public class Session {
         while (c.moveToNext())
         {
             sl.add(Instantiate(c.getInt(c.getColumnIndexOrThrow(SqlLite.SessionEntry.Column_Name_ID)),
+                    c.getInt(c.getColumnIndexOrThrow(SqlLite.SessionEntry.Column_Name_Customer_ID)),
                     c.getString(c.getColumnIndexOrThrow(SqlLite.SessionEntry.Column_Name_Session_Name))
             ));
         }
 
         d.close();
-        return sl.get(0) != null ? sl.get(0) : null;
+
+        if (sl.size() == 0) return null;
+
+        return sl.get(0);
     }
 
     public void UpdateSession(Session s)
@@ -172,6 +182,7 @@ public class Session {
 
         ContentValues v = new ContentValues();
         v.put(SqlLite.SessionEntry.Column_Name_Session_Name, s.getSessionName());
+        v.put(SqlLite.SessionEntry.Column_Name_Customer_ID, s.getCustID());
         rowID = d.insert(SqlLite.SessionEntry.Table_Name, null, v);
 
         d.close();
@@ -181,13 +192,25 @@ public class Session {
     {
         ReaderDbHelper dbHelper = new ReaderDbHelper(ctx);
         SQLiteDatabase d = dbHelper.getWritableDatabase();
+        ArrayList<Session> sl = new ArrayList<Session>();
 
-        long count = DatabaseUtils.queryNumEntries(d, SqlLite.CustomerEntry.TABLE_NAME);
+        long count = DatabaseUtils.queryNumEntries(d, SqlLite.SessionEntry.Table_Name);
 
-        if (count == 0) { PutSession(Session.SessionsList().get(0)); }
-        if (count == 0) { PutSession(Session.SessionsList().get(0)); }
+        if (count == 0) {
+            for (Session s : Session.SessionsList()) {
+                PutSession(s);
+            }
+
+        }
 
         d.close();
     }
 
+    public int getCustID() {
+        return CustID;
+    }
+
+    public void setCustID(int custID) {
+        CustID = custID;
+    }
 }

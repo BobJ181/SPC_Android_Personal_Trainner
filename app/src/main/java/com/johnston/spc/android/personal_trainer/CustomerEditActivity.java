@@ -44,6 +44,7 @@ public class CustomerEditActivity extends AppCompatActivity implements UserLogge
         setSupportActionBar(toolbar);
 
         String position = "";
+        ID = -1;
 
         customer = new Customers(this);
 

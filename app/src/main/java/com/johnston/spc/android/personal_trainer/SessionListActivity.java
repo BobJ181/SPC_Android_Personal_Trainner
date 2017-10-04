@@ -1,5 +1,7 @@
 package com.johnston.spc.android.personal_trainer;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,9 +14,24 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import com.johnston.spc.android.array_adapter.SessionArrayAdapter;
+import com.johnston.spc.android.models.Customers;
+import com.johnston.spc.android.models.Session;
+
+import java.util.ArrayList;
+
+import layout.UserLoggedInFragment;
 
 public class SessionListActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, UserLoggedInFragment.OnFragmentInteractionListener {
+
+    private Session session;
+    private ArrayList<Session> sessionList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,15 +39,6 @@ public class SessionListActivity extends AppCompatActivity
         setContentView(R.layout.activity_session_list);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -40,6 +48,44 @@ public class SessionListActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        Button btn_new = (Button) findViewById(R.id.btn_new);
+
+        btn_new.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SessionListActivity.this, SessionViewActivity.class);
+                intent.putExtra("ID", Integer.toString(-1));
+
+                startActivity(intent);
+            }
+        });
+
+        session = new Session(this);
+        session.Populated();
+
+        sessionList = session.GetSessions();
+
+        SessionArrayAdapter listAdapter = new SessionArrayAdapter(this, sessionList);
+
+        ListView lv = (ListView) findViewById(R.id.session_list);
+
+        lv.setAdapter(listAdapter);
+
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                CharSequence t = "Clicked... @ Position " + position;
+                Session s = sessionList.get(position);
+
+                Toast.makeText(getApplicationContext(), t, Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(SessionListActivity.this, SessionViewActivity.class);
+                intent.putExtra("ID", Integer.toString(s.getID()));
+
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -97,5 +143,10 @@ public class SessionListActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }

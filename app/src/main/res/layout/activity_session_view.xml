@@ -1,9 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.johnston.spc.android.personal_trainer.SessionViewActivity">
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/user"
+        android:name="layout.UserLoggedInFragment"/>
+    <Button
+        android:id="@+id/btn_save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Save Session"/>
+    <Button
+        android:id="@+id/btn_Complete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Complete Session"/>
+    <EditText
+        android:id="@+id/txt_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:hint="Session Name"
+        android:imeOptions="actionNext"
+        />
+    <Spinner
+        android:id="@+id/spnCustomer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:imeOptions="actionNext" />
 
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

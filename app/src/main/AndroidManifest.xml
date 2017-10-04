@@ -53,7 +53,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".SessionViewActivity" />
         <activity android:name=".SessionCustomerActivity" />
-        <activity android:name=".SessionBillingActivity"></activity>
+        <activity android:name=".SessionBillingActivity" />
+        <activity android:name=".ReceiptActivity"></activity>
     </application>
 
 </manifest>

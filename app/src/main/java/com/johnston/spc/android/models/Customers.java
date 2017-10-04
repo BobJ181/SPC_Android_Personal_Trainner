@@ -49,7 +49,7 @@ public class Customers {
 
     public String getFullName()
     {
-        return FirstName + " (" + KnownAsName + ") " + LastName;
+        return FirstName + " " + LastName;
     }
     public String getFirstName() {
         return FirstName;
@@ -249,6 +249,41 @@ public class Customers {
         return cl;
     }
 
+    public ArrayList<String> getCustomerNames()
+    {
+        ReaderDbHelper dbHelper = new ReaderDbHelper(context);
+        SQLiteDatabase d = dbHelper.getWritableDatabase();
+        ArrayList<String> cl = new ArrayList<String>();
+
+        String[] proj = {
+                SqlLite.CustomerEntry.COLUMN_NAME_FIRSTNAME,
+                SqlLite.CustomerEntry.COLUMN_NAME_LASTNAME
+        };
+
+
+        String sel = "";
+        String[] selArg = {  };
+
+        Cursor c = d.query(
+                SqlLite.CustomerEntry.TABLE_NAME,
+                proj,
+                sel,
+                selArg,
+                null,
+                null,
+                "");
+
+        while (c.moveToNext())
+        {
+            cl.add(c.getString(c.getColumnIndexOrThrow(SqlLite.CustomerEntry.COLUMN_NAME_FIRSTNAME)) + " " +
+                    c.getString(c.getColumnIndexOrThrow(SqlLite.CustomerEntry.COLUMN_NAME_LASTNAME))
+            );
+        }
+
+        d.close();
+        return cl;
+    }
+
     public Customers getCustomer(int Value, boolean byPosition)
     {
 
@@ -427,7 +462,7 @@ public class Customers {
     }
 
     public void CountDB()
-    {
+        {
         ReaderDbHelper dbHelper = new ReaderDbHelper(context);
         SQLiteDatabase d = dbHelper.getWritableDatabase();
 

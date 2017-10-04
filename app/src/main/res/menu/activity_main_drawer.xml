@@ -6,10 +6,10 @@
             android:id="@+id/nav_camera"
             android:icon="@drawable/ic_menu_camera"
             android:title="@string/customer" />
-        <!--<item
+        <item
             android:id="@+id/nav_gallery"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/session" />-->
+            android:title="@string/session" />
         <item
             android:id="@+id/log_out"
             android:icon="@drawable/ic_menu_gallery"

@@ -12,7 +12,7 @@ public class ReaderDbHelper extends SQLiteOpenHelper {
 
     private static Context c;
 
-    public static final String DbName = "PTrainer6.db";
+    public static final String DbName = "PTrainer18.db";
     public ReaderDbHelper(Context context)
     {
         super(context, DbName, null, 1);
@@ -23,7 +23,7 @@ public class ReaderDbHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SqlLite.CustomerEntry.SQL_Create_Customer_Table);
         db.execSQL(SqlLite.CustomerBillingEntry.SQL_Create_Customer_Table);
-        db.execSQL(SqlLite.SessionEntry.SQL_Create_Customer_Table);
+        db.execSQL(SqlLite.SessionEntry.SQL_Create_Session_Table);
     }
 
     @Override

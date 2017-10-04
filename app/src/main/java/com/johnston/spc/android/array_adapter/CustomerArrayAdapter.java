@@ -21,6 +21,7 @@ import java.util.List;
 
 public class CustomerArrayAdapter extends ArrayAdapter<Customers> implements OnItemClickListener
 {
+    private Customers Customer;
     private final List<Customers> values;
     private final Context context;
     public CustomerArrayAdapter(Context context, List<Customers> v) {
@@ -34,6 +35,8 @@ public class CustomerArrayAdapter extends ArrayAdapter<Customers> implements OnI
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.customer_row, parent, false);
         Customers c = (Customers) values.get(position);
+
+        setCustomer(c);
 
         TextView tvFullName = (TextView) rowView.findViewById(R.id.txt_name);
         TextView tvKnown = (TextView) rowView.findViewById(R.id.txt_known);
@@ -54,5 +57,13 @@ public class CustomerArrayAdapter extends ArrayAdapter<Customers> implements OnI
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+    }
+
+    public Customers getCustomer() {
+        return Customer;
+    }
+
+    public void setCustomer(Customers customer) {
+        Customer = customer;
     }
 }

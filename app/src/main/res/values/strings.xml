@@ -54,6 +54,11 @@
         <item>Georgia</item>
         <item>South Carolina</item>
     </string-array>
+    <string-array name="payment">
+        <item>Cash</item>
+        <item>Check</item>
+        <item>Credit Card</item>
+    </string-array>
     <string name="edit">Edit</string>
     <string name="billing">Billing</string>
     <string name="title_activity_custom_view">CustomViewActivity</string>
