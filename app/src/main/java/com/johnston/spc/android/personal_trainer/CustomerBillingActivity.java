@@ -1,5 +1,6 @@
 package com.johnston.spc.android.personal_trainer;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringDef;
@@ -57,9 +58,16 @@ public class CustomerBillingActivity extends AppCompatActivity implements Naviga
 
         fullName.setText(customers.getCustomer(Integer.parseInt(CustomerID), false).getFullName());
 
-        CustomerBilling cb = customerBilling.getCustomerBilling(CustomerID);
+        ArrayList<CustomerBilling> cbl = customerBilling.getCustomerBillings("", "");
+        CustomerBilling cb = null;
+
+        for (CustomerBilling c : cbl)
+        {
+            if (c.getCustomerID() == Integer.parseInt(CustomerID)) { cb = c; }
+        }
 
         if (cb != null) {
+            ID = Integer.toString(cb.getID());
             ccn.setText(cb.getCreditCardNumber());
             ccv.setText(cb.getCCV());
             addressOne.setText(cb.getAddressOne());
@@ -94,14 +102,26 @@ public class CustomerBillingActivity extends AppCompatActivity implements Naviga
                 else {
                     CustomerBilling cb = customerBilling;
 
-                    cb.UpdateCustomer(cb.Instantiate(Integer.parseInt(ID),
-                            Integer.parseInt(CustomerID), ccn.getText().toString(),
-                            ccv.getText().toString(),
-                            addressOne.getText().toString(),
-                            addressTwo.getText().toString(),
-                            city.getText().toString(),
-                            state.getSelectedItem().toString()));
+                    int id = Integer.parseInt(ID);
+                    int custID = Integer.parseInt(CustomerID);
+                    String cc = ccn.getText().toString();
+                    String cv  = ccv.getText().toString();
+                    String aOne = addressOne.getText().toString();
+                    String aTwo = addressTwo.getText().toString();
+                    String ct = city.getText().toString();
+                    String s = state.getSelectedItem().toString();
+
+                    cb.UpdateCustomer(cb.Instantiate(id, custID, cc, cv,
+                            aOne,
+                            aTwo,
+                            ct,
+                            s));
                 }
+
+                Intent intent = new Intent(CustomerBillingActivity.this, CustomerEditActivity.class);
+                intent.putExtra("CUSTOMER_ID", CustomerID);
+
+                startActivity(intent);
             }
         });
     }

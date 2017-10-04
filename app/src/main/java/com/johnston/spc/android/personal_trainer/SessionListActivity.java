@@ -62,7 +62,6 @@ public class SessionListActivity extends AppCompatActivity
         });
 
         session = new Session(this);
-        session.Populated();
 
         sessionList = session.GetSessions();
 

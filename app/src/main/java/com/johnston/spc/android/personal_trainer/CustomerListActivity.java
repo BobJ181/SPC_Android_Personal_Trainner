@@ -53,7 +53,6 @@ public class CustomerListActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         Customers c = new Customers(this);
-        c.CountDB();
 
         customerList = c.getCustomers();
 

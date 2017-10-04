@@ -31,7 +31,7 @@ public class CustomerEditActivity extends AppCompatActivity implements UserLogge
     private Spinner state;
     private EditText zip;
 
-    private boolean newRecord = false;
+    private boolean newRecord = true;
 
     private Customers customer;
     private int ID;
@@ -135,7 +135,7 @@ public class CustomerEditActivity extends AppCompatActivity implements UserLogge
                             zip.getText().toString(),
                             ""));
                 }
-
+                startActivity(new Intent(CustomerEditActivity.this, CustomerListActivity.class));
             }
         });
 

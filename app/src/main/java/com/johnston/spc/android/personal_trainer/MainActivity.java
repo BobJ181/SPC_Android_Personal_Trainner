@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.johnston.spc.android.models.CustomerBilling;
 import com.johnston.spc.android.models.Customers;
 import com.johnston.spc.android.models.Session;
 
@@ -37,10 +38,12 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         });
         */
 
+        CustomerBilling cb = new CustomerBilling(this);
         Customers c = new Customers(this);
         Session s =  new Session(this);
 
         c.CountDB();
+        cb.CountDB();
         s.Populated();
 
 

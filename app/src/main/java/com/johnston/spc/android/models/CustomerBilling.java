@@ -131,13 +131,11 @@ public class CustomerBilling {
         return cb;
     }
 
-    public CustomerBilling getCustomerBilling(String Value)
+    public ArrayList<CustomerBilling> getCustomerBillings(String column, String value)
     {
-
         ReaderDbHelper dbHelper = new ReaderDbHelper(ctx);
         SQLiteDatabase d = dbHelper.getWritableDatabase();
-
-        CountDB();
+        ArrayList<CustomerBilling> cl = new ArrayList<CustomerBilling>();
 
         String[] proj = {
                 SqlLite.CustomerBillingEntry.Column_Name_ID,
@@ -150,17 +148,72 @@ public class CustomerBilling {
                 SqlLite.CustomerBillingEntry.Column_Name_CCV
         };
 
-        String sel = SqlLite.CustomerBillingEntry.Column_Name_CustomerID;
+
+        String sel = "";
+        String[] selArg = { };
+
+        Cursor c = d.query(
+                SqlLite.CustomerBillingEntry.Table_Name,
+                proj,
+                sel,
+                selArg,
+                null,
+                null,
+                "");
+
+        while (c.moveToNext())
+        {
+            int idPos = c.getColumnIndexOrThrow(SqlLite.CustomerBillingEntry.Column_Name_ID);
+            int id = c.getInt(idPos);
+
+            cl.add(Instantiate(id,
+                    c.getInt(c.getColumnIndexOrThrow(SqlLite.CustomerBillingEntry.Column_Name_CustomerID)),
+                    c.getString(c.getColumnIndexOrThrow(SqlLite.CustomerBillingEntry.Column_Name_Card_Number)),
+                    c.getString(c.getColumnIndexOrThrow(SqlLite.CustomerBillingEntry.Column_Name_CCV)),
+                    c.getString(c.getColumnIndexOrThrow(SqlLite.CustomerBillingEntry.Column_Name_Address_One)),
+                    c.getString(c.getColumnIndexOrThrow(SqlLite.CustomerBillingEntry.Column_Name_Address_Two)),
+                    c.getString(c.getColumnIndexOrThrow(SqlLite.CustomerBillingEntry.COLUMN_NAME_CITY)),
+                    c.getString(c.getColumnIndexOrThrow(SqlLite.CustomerBillingEntry.COLUMN_NAME_STATE))
+            ));
+        }
+
+        d.close();
+        return cl;
+    }
+
+    public CustomerBilling getCustomerBilling(String Value)
+    {
+
+        ReaderDbHelper dbHelper = new ReaderDbHelper(ctx);
+        SQLiteDatabase d = dbHelper.getWritableDatabase();
+
+        String[] proj = {
+                SqlLite.CustomerBillingEntry.Column_Name_ID,
+                SqlLite.CustomerBillingEntry.Column_Name_CustomerID,
+                SqlLite.CustomerBillingEntry.COLUMN_NAME_STATE,
+                SqlLite.CustomerBillingEntry.Column_Name_Address_One,
+                SqlLite.CustomerBillingEntry.Column_Name_Address_Two,
+                SqlLite.CustomerBillingEntry.COLUMN_NAME_CITY,
+                SqlLite.CustomerBillingEntry.Column_Name_Card_Number,
+                SqlLite.CustomerBillingEntry.Column_Name_CCV
+        };
+
+        String sel = SqlLite.CustomerBillingEntry.Column_Name_CustomerID + " = ?";
         String[] selArgs = { Value };
 
 
         Cursor c = d.query(SqlLite.CustomerBillingEntry.Table_Name, proj, sel, selArgs, "", "", "");
 
+
+
+        if (c.getCount() == 0) { d.close(); return null;  }
+
         d.close();
 
-        if (c.getCount() == 0) return null;
+        int idPos = c.getColumnIndexOrThrow(SqlLite.CustomerBillingEntry.Column_Name_ID);
+        int id = c.getInt(idPos);
 
-        return CustomerBilling.Instantiate(c.getInt(c.getColumnIndexOrThrow(SqlLite.CustomerBillingEntry.Column_Name_ID)),
+        return CustomerBilling.Instantiate(id,
                 c.getInt(c.getColumnIndexOrThrow(SqlLite.CustomerBillingEntry.Column_Name_CustomerID)),
                 c.getString(c.getColumnIndexOrThrow(SqlLite.CustomerBillingEntry.Column_Name_Card_Number)),
                 c.getString(c.getColumnIndexOrThrow(SqlLite.CustomerBillingEntry.Column_Name_CCV)),
@@ -168,6 +221,8 @@ public class CustomerBilling {
                 c.getString(c.getColumnIndexOrThrow(SqlLite.CustomerBillingEntry.Column_Name_Address_Two)),
                 c.getString(c.getColumnIndexOrThrow(SqlLite.CustomerBillingEntry.COLUMN_NAME_CITY)),
                 c.getString(c.getColumnIndexOrThrow(SqlLite.CustomerBillingEntry.COLUMN_NAME_STATE)));
+
+
     }
     public void PutCustomers(CustomerBilling cb)
     {
@@ -177,6 +232,7 @@ public class CustomerBilling {
 
         ContentValues v = new ContentValues();
         v.put(SqlLite.CustomerBillingEntry.Column_Name_Card_Number, cb.getCreditCardNumber());
+        v.put(SqlLite.CustomerBillingEntry.Column_Name_CustomerID, cb.getCustomerID());
         v.put(SqlLite.CustomerBillingEntry.Column_Name_CCV, cb.getCCV());
         v.put(SqlLite.CustomerBillingEntry.Column_Name_Address_One, cb.getAddressOne());
         v.put(SqlLite.CustomerBillingEntry.Column_Name_Address_Two, cb.getAddressTwo());
@@ -208,6 +264,7 @@ public class CustomerBilling {
 
         ContentValues v = new ContentValues();
         v.put(SqlLite.CustomerBillingEntry.Column_Name_Card_Number, cb.getCreditCardNumber());
+        v.put(SqlLite.CustomerBillingEntry.Column_Name_CustomerID, cb.getCustomerID());
         v.put(SqlLite.CustomerBillingEntry.Column_Name_CCV, cb.getCCV());
         v.put(SqlLite.CustomerBillingEntry.Column_Name_Address_One, cb.getAddressOne());
         v.put(SqlLite.CustomerBillingEntry.Column_Name_Address_Two, cb.getAddressTwo());
@@ -230,9 +287,16 @@ public class CustomerBilling {
         ReaderDbHelper dbHelper = new ReaderDbHelper(ctx);
         SQLiteDatabase d = dbHelper.getWritableDatabase();
 
-        long count = DatabaseUtils.queryNumEntries(d, SqlLite.CustomerEntry.TABLE_NAME);
+        Customers c = new Customers(ctx);
+        ArrayList<Customers> cl = c.getCustomers();
 
-        if (count == 0) PutCustomers(CustomerBilling.Instantiate(1, "4444333322221111", "000", "", "", "", "" ));
+        long count = DatabaseUtils.queryNumEntries(d, SqlLite.CustomerBillingEntry.Table_Name);
+
+        if (count == 0) {
+            for (Customers o : cl) {
+                PutCustomers(CustomerBilling.Instantiate(o.getID(), "4444333322221111", "000", "", "", "", "" ));
+            }
+        }
 
         d.close();
 
